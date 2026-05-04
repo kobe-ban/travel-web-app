@@ -4,7 +4,7 @@ import { useAuth } from '../../contexts/AuthContext'
 import Toast from '../../components/Toast'
 import thailandHero from '../../assets/thailand-hero.png'
 
-const defaultHeroTitle = 'เที่ยวไทยแบบมีแผน พร้อมทริปที่เลือกจองได้จริง'
+const defaultHeroTitle = 'เที่ยวไทยแบบมีแผน เลือกทริปสวย จองได้จริง'
 
 const heroSlides = [
   {
@@ -21,7 +21,7 @@ const heroSlides = [
     to: '/promotions',
     image: 'https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=2200&q=85',
     eyebrow: 'Private Offers',
-    title: 'ดีลเที่ยวไทยที่ทำให้การออกเดินทางง่ายขึ้น',
+    title: 'ดีลเที่ยวไทยคุ้มค่า เลือกง่าย ออกเดินทางได้ทันที',
     text: 'รวมโปรโมชั่นและช่วงเวลาน่าไป เพื่อให้คุณเลือกทริปที่คุ้มค่าแต่ยังดูพิเศษตั้งแต่หน้าแรก',
     tone: 'deal'
   },
@@ -30,7 +30,7 @@ const heroSlides = [
     to: '/register',
     image: 'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=2200&q=85',
     eyebrow: 'Plan Your Moment',
-    title: 'เริ่มวางแผนทริปในแบบที่เป็นคุณ',
+    title: 'วางแผนทริปในแบบคุณ เก็บไอเดีย จองได้มั่นใจ',
     text: 'เก็บแรงบันดาลใจ เลือกสไตล์การเดินทาง และกลับมาต่อยอดแผนเที่ยวได้อย่างมั่นใจทุกครั้ง',
     tone: 'plan'
   }
@@ -95,6 +95,14 @@ const moments = [
   { stat: '3-5 วัน', label: 'จังหวะทริปยอดนิยม' },
   { stat: 'ไทย', label: 'จุดหมายหลัก' }
 ]
+
+function SectionSeparator({ tone = 'cool' }) {
+  return (
+    <div className={`section-separator section-separator-${tone}`} aria-hidden="true">
+      <span />
+    </div>
+  )
+}
 
 export default function Home() {
   const { user } = useAuth()
@@ -192,6 +200,8 @@ export default function Home() {
         </div>
       </section>
 
+      <SectionSeparator />
+
       <section className="signature-section" id="travel-plans">
         <div className="section-heading">
           <div>
@@ -226,6 +236,8 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <SectionSeparator tone="warm" />
 
       <section className="offers-section" id="special-offers">
         <div className="section-heading">

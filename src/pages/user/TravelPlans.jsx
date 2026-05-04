@@ -3,6 +3,11 @@ import { useEffect, useMemo, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 
 const durations = ['ทั้งหมด', '1-2 วัน', '3-4 วัน', '5 วันขึ้นไป']
+const planStats = [
+  { value: '24+', label: 'เส้นทางคัดสรร' },
+  { value: '3-5 วัน', label: 'ช่วงทริปยอดนิยม' },
+  { value: 'ไทย', label: 'จุดหมายหลัก' }
+]
 
 function getDurationGroup(duration) {
   if (duration <= 2) return '1-2 วัน'
@@ -60,30 +65,50 @@ export default function TravelPlans() {
   return (
     <div className="plans-page">
       <header className="page-header page-header-immersive">
-        <span className="eyebrow">Curated Trips</span>
-        <h1>ทริปไทยที่คัดมาอย่างมีรสนิยม</h1>
-        <p>ค้นหาจุดหมายหรือคำที่สนใจ แล้วกรองตามจำนวนวันเพื่อเลือกแผนเที่ยวที่เข้ากับจังหวะการเดินทางของคุณ</p>
+        <div className="page-header-content">
+          <span className="eyebrow">Curated Trips</span>
+          <h1>ทริปไทยที่คัดมาอย่างมีรสนิยม</h1>
+          <p>ค้นหาจุดหมายหรือคำที่สนใจ แล้วกรองตามจำนวนวันเพื่อเลือกแผนเที่ยวที่เข้ากับจังหวะการเดินทางของคุณ</p>
+        </div>
+        <div className="page-header-panel" aria-label="ข้อมูลสรุปแผนเที่ยว">
+          {planStats.map((item) => (
+            <div key={item.label}>
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+            </div>
+          ))}
+        </div>
       </header>
 
-      <div className="toolbar">
-        <input
-          type="search"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="ค้นหา เช่น เชียงใหม่ ภูเก็ต คาเฟ่ ทะเล"
-          aria-label="ค้นหาทริปไทย"
-        />
-        <div className="segmented-control" aria-label="กรองตามจำนวนวัน">
-          {durations.map((item) => (
-            <button
-              key={item}
-              type="button"
-              className={duration === item ? 'active' : ''}
-              onClick={() => setDuration(item)}
-            >
-              {item}
-            </button>
-          ))}
+      <div className="toolbar plans-search-panel">
+        <div className="plans-search-heading">
+          <span className="eyebrow">Trip Finder</span>
+          <h2>ค้นหาทริปไทย</h2>
+          <p>พิมพ์ชื่อเมือง สไตล์ทริป หรือคำที่อยากเจอ แล้วเลือกจำนวนวันที่เหมาะกับจังหวะของคุณ</p>
+        </div>
+        <div className="plans-search-controls">
+          <label className="plans-search-field">
+            <span>ค้นหา</span>
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="เช่น เชียงใหม่ ภูเก็ต คาเฟ่ ทะเล"
+              aria-label="ค้นหาทริปไทย"
+            />
+          </label>
+          <div className="segmented-control" aria-label="กรองตามจำนวนวัน">
+            {durations.map((item) => (
+              <button
+                key={item}
+                type="button"
+                className={duration === item ? 'active' : ''}
+                onClick={() => setDuration(item)}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 

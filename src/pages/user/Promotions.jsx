@@ -1,6 +1,13 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
+
+const promoStats = [
+  { value: 'Private', label: 'ข้อเสนอพิเศษ' },
+  { value: 'Active', label: 'พร้อมใช้ตอนนี้' },
+  { value: 'TH', label: 'เที่ยวไทยคุ้มค่า' }
+]
 
 export default function Promotions() {
   const [promotions, setPromotions] = useState([])
@@ -42,10 +49,35 @@ export default function Promotions() {
   return (
     <div className="promotions-page">
       <header className="page-header page-header-immersive">
-        <span className="eyebrow">Private Offers</span>
-        <h1>ข้อเสนอพิเศษสำหรับเที่ยวไทย</h1>
-        <p>ดีลที่เปิดใช้งานอยู่จะแสดงที่นี่ พร้อมช่วงเวลาและรายละเอียดสำหรับวางแผนทริปอย่างคุ้มค่า</p>
+        <div className="hero-skyline" aria-hidden="true" />
+        <div className="page-header-content">
+          <span className="eyebrow">Private Offers</span>
+          <h1>ข้อเสนอพิเศษสำหรับเที่ยวไทย</h1>
+          <p>ดีลที่เปิดใช้งานอยู่จะแสดงที่นี่ พร้อมช่วงเวลาและรายละเอียดสำหรับวางแผนทริปอย่างคุ้มค่า</p>
+          <div className="hero-actions">
+            <Link className="btn-primary" to="/plans">สำรวจทริป</Link>
+            <a className="btn-ghost" href="mailto:hello@thaitrip.studio?subject=สอบถามโปรโมชัน">สอบถามดีล</a>
+          </div>
+        </div>
+        <div className="page-header-panel promotions-header-panel" aria-label="ข้อมูลสรุปโปรโมชัน">
+          {promoStats.map((item) => (
+            <div key={item.label}>
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+            </div>
+          ))}
+        </div>
       </header>
+
+      <div className="section-separator section-separator-warm" aria-hidden="true">
+        <span />
+      </div>
+
+      <section className="promotions-intro">
+        <span className="eyebrow">Deal Board</span>
+        <h2>โปรเที่ยวไทยที่น่าจองตอนนี้</h2>
+        <p>เลือกดีลที่ตรงกับช่วงเดินทาง แล้วใช้เป็นจุดเริ่มต้นในการวางแผนทริปที่คุ้มและดูพิเศษขึ้นตั้งแต่หน้าแรก</p>
+      </section>
 
       {errorMessage ? (
         <section className="empty-luxury error-state" role="alert" aria-live="assertive">
